@@ -9,3 +9,7 @@ export const columnDefs = [
     { field: 'birth_date_place' },
     { field: 'places_of_stay' },
 ]
+
+export const defaultColDef= {
+    resizable: true,
+}

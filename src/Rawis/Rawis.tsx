@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AgGridReact } from 'ag-grid-react';
-import { columnDefs } from "./rawiColumns";
+import { AgGridReact as AgGridReactType } from 'ag-grid-react/lib/agGridReact'
+import { columnDefs, defaultColDef } from "./rawiColumns";
+import { QuickSearch } from "../shared/QuickSearch";
 
 
 const Rawis = () => {
 
   const [rawiData, setRawiData] = useState<any>(null);
+  const gridRef = useRef<AgGridReactType>(null)
 
   useEffect(() => {
     fetch('/rawis'
@@ -17,14 +20,17 @@ const Rawis = () => {
   }, []);
 
   return (
-  <div>
-    <div className="ag-theme-balham" style={{ height: 500 }}>
-      <AgGridReact
-        rowData={rawiData}
-        columnDefs={columnDefs}
-      />
+    <div>
+      <div className="ag-theme-balham" style={{ height: 500 }}>
+        <QuickSearch gridRef={gridRef} />
+        <AgGridReact
+          ref={gridRef}
+          rowData={rawiData}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+        />
+      </div>
     </div>
-  </div>
   )
 }
 

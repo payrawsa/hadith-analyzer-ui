@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import { AgGridReact as AgGridReactType } from 'ag-grid-react/lib/agGridReact'
 import { columnDefs, defaultColDef } from "./hadithColumns";
 import { HadithModal } from "../shared/HadithModal";
+import { QuickSearch } from "../shared/QuickSearch";
 
 
 const Hadith = () => {
@@ -21,16 +22,12 @@ const Hadith = () => {
     })
   }, []);
 
-  const onFilterTextBoxChanged = (text: string) => {
-    gridRef?.current?.api.setQuickFilter(text);
-  }
-
   return (
     <div>
 
       <div className="ag-theme-balham" style={{ height: 500 }}>
-        <input type="text" id="filter-text-box" placeholder="Filter..." onInput={(input) => onFilterTextBoxChanged(input.currentTarget.value)} />
-        <AgGridReact
+      <QuickSearch gridRef={gridRef} />
+      <AgGridReact
           ref={gridRef}
           rowData={rawiData}
           columnDefs={columnDefs}
